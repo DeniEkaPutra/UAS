@@ -1,38 +1,52 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <div class="container">
-        <h1>Tambah Mahasiswa</h1>
+    <div class="py-12">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="container mx-auto mt-5">
+                        <h2 class="mb-5 text-2xl font-bold">Tambah Mahasiswa Baru</h2>
+                        <x-auth-session-status class="mb-4" :status="session('success')" />
 
-        <form action="{{ route('mahasiswas.store') }}" method="POST">
-            @csrf
+                        <!-- Form untuk menambahkan mahasiswa -->
+                        <form action="{{ route('mahasiswas.store') }}" method="POST" class="space-y-4">
+                            @csrf <!-- Perlindungan CSRF Laravel -->
 
-            <div class="mb-3">
-                <label for="name" class="form-label">Nama Mahasiswa</label>
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
-                @error('name')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                            <div class="form-group">
+                                <label for="nama" class="block text-sm font-medium text-gray-700">Nama Mahasiswa</label>
+                                <input type="text" id="nama" name="nama" 
+                                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                                    value="{{ old('nama') }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="npm" class="block text-sm font-medium text-gray-700">NPM (Nomor Pokok Mahasiswa)</label>
+                                <input type="text" id="npm" name="npm" 
+                                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                                    value="{{ old('npm') }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="prodi" class="block text-sm font-medium text-gray-700">Program Studi (Prodi)</label>
+                                <input type="text" id="prodi" name="prodi" 
+                                    class="block w-full p-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" 
+                                    value="{{ old('prodi') }}" required>
+                            </div>
+
+                            <!-- Tombol Kirim -->
+                            <button type="submit" 
+                                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-black bg-white border-2 border-blue-500 rounded-md shadow-sm hover:bg-blue-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Kirim
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-            <div class="mb-3">
-                <label for="npm" class="form-label">NPM</label>
-                <input type="text" class="form-control @error('npm') is-invalid @enderror" id="npm" name="npm" value="{{ old('npm') }}" required>
-                @error('npm')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="mb-3">
-                <label for="prodi" class="form-label">Program Studi</label>
-                <input type="text" class="form-control @error('prodi') is-invalid @enderror" id="prodi" name="prodi" value="{{ old('prodi') }}" required>
-                @error('prodi')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="{{ route('mahasiswas.index') }}" class="btn btn-secondary">Kembali</a>
-        </form>
+        </div>
     </div>
-@endsection
+</x-app-layout>
