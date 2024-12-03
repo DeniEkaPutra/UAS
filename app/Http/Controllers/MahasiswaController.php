@@ -89,9 +89,11 @@ class MahasiswaController extends Controller
         return redirect()->route('mahasiswas.index')->with('error', 'Mahasiswa tidak ditemukan');
     }
 
+
     // Fitur download excel
     public function downloadExcel()
     {
+        //buat donlot excel
         return Excel::download(new MahasiswaExport, 'mahasiswa.xlsx');
     }
 }

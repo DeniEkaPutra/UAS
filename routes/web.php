@@ -28,6 +28,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::resource('mahasiswas', MahasiswaController::class);
+Route::get('mahasiswas', [MahasiswaController::class, 'index'])->name('mahasiswas.index');
+Route::get('mahasiswas/create', [MahasiswaController::class, 'create'])->name('mahasiswas.create');
+Route::post('mahasiswas', [MahasiswaController::class, 'store'])->name('mahasiswas.store');
+Route::get('mahasiswas/{id}/edit', [MahasiswaController::class, 'edit'])->name('mahasiswas.edit');
+Route::put('mahasiswas/{id}', [MahasiswaController::class, 'update'])->name('mahasiswas.update');
+Route::delete('mahasiswas/{id}', [MahasiswaController::class, 'destroy'])->name('mahasiswas.destroy');
+Route::get('mahasiswas/download', [MahasiswaController::class, 'downloadExcel'])->name('mahasiswas.download');
+
 
 require __DIR__.'/auth.php';
